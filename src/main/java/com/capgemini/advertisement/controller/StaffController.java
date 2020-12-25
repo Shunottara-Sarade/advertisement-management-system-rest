@@ -118,14 +118,13 @@ public class StaffController {
             log.info("Staff: "+ staff.getStaffId()+ " updated");
             return new ResponseEntity<>(updatedStaff,HttpStatus.OK);
 
+ 
+
         }catch(StaffException e) {
             log.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
     }
 
- 
-
- 
 
 }
