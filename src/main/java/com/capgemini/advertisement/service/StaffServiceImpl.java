@@ -1,11 +1,15 @@
 package com.capgemini.advertisement.service;
-
 import java.util.List;
 import java.util.Optional;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.capgemini.advertisement.dao.StaffSpringDataDAO;
 import com.capgemini.advertisement.entity.Staff;
 import com.capgemini.advertisement.exception.StaffException;
@@ -16,7 +20,6 @@ import com.capgemini.advertisement.exception.StaffException;
  * @author Shunottara and Samidha
  *
  */
-
 @Service
 @Transactional
 
@@ -134,7 +137,3 @@ public class StaffServiceImpl implements StaffService
 			throw new StaffException(exception.getMessage(),exception);
 		}
 	}
-
-
-
-}

@@ -6,13 +6,12 @@ import com.capgemini.advertisement.entity.CustomerMaster;
 
 /**
  * 
- * @author Shweta and Ashwini
+ * @author Sandhya and Shweta
  *
  */
 
 @Repository
-public interface CustomerSpringDataDAO extends JpaRepository<CustomerMaster,Integer>
+public interface LoginRepository extends JpaRepository<CustomerMaster, Integer> 
 {
 
 }
-
