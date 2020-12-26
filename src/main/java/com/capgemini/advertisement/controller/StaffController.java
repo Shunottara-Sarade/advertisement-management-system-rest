@@ -33,7 +33,7 @@ public class StaffController {
     //get staff by Id
     //http://localhost:8081/api/staff/1
     @GetMapping("/{id}")
-    public ResponseEntity<Staff> getProductById(@PathVariable Integer id){
+    public ResponseEntity<Staff> getStaffById(@PathVariable Integer id){
         try {
             Staff staff= staffService.getStaffById(id);
             log.info("Product added"+ staff);
@@ -126,8 +126,5 @@ public class StaffController {
         }
     }
 
- 
-
- 
 
 }
