@@ -1,11 +1,5 @@
-package com.capgemini.advertisement.exception;
-
- 
 
 import java.util.Date;
-
- 
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,4 +34,3 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             ex.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
       } 
-}

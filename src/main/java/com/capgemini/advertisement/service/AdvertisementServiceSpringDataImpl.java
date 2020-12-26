@@ -18,25 +18,29 @@ import com.capgemini.advertisement.entity.Staff;
 import com.capgemini.advertisement.exception.AdvertisementException;
 import com.capgemini.advertisement.exception.CustomerException;
 
+/**
+ * 
+ * @author Sapna and Dakshata
+ *
+ */
+
 @Service
 @Transactional
 public class AdvertisementServiceSpringDataImpl implements AdvertisementService{
 	@Autowired
 	private AdvertisementDetailSpringDataDAO advertisementDetailSpringDataDaoImpl;
-	
+
 	@Autowired
 	private CustomerSpringDataDAO customerSpringDataDao;
-	
+
 	@Autowired
 	private StaffSpringDataDAO staffSpringDataDao;
-	
+
 	@Override
 	public Integer addAdvertisement(Integer cid, Integer sid,AdvertisementDetails advertisement) throws AdvertisementException {
 		try {
-			//advertisement.setCustomer(customers.save(advertisement.getCustomer()));
-			
-//			CustomerMaster customerMaster=cs.getCustomerById(advertisement.getCustomer().getCustId());
-//	        advertisement.setCustomer(customerMaster);
+
+
 			CustomerMaster cm=customerSpringDataDao.findById(cid).get();
 			advertisement.setCustomer(cm);
 			Staff staff=staffSpringDataDao.findById(sid).get();
@@ -50,9 +54,9 @@ public class AdvertisementServiceSpringDataImpl implements AdvertisementService{
 		}catch(Exception exception) {
 			throw new AdvertisementException(exception.getMessage(),exception);
 		}
-		
+
 	}
-		
+
 
 	@Override
 	public AdvertisementDetails getAdvertisementById(Integer id) throws AdvertisementException {
