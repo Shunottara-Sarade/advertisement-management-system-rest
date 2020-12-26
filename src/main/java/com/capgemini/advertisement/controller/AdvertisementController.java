@@ -1,7 +1,6 @@
 package com.capgemini.advertisement.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,25 +17,34 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.capgemini.advertisement.entity.AdvertisementDetails;
 import com.capgemini.advertisement.entity.CustomerMaster;
+import com.capgemini.advertisement.entity.Staff;
 import com.capgemini.advertisement.exception.AdvertisementException;
 import com.capgemini.advertisement.exception.CustomerException;
 import com.capgemini.advertisement.service.AdvertisementService;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author Sapna and Dakshata
+ *
+ */
 @RestController
+//Maps a specific request path or pattern onto a controller
 @RequestMapping("/api/advertisement")
 @Slf4j
 public class AdvertisementController {
-	@Autowired
-	//@Qualifier(value = "advertisementServiceSpringData")
+	@Autowired 
 	private AdvertisementService advertisementService;
-	
-	
+	// get advertisement by id
+	@ApiOperation(value = "Get Advertisement by Id",
+			response = AdvertisementDetails.class,tags="get-advertisement-by-id",
+			consumes="id",httpMethod = "GET")
 	@GetMapping("/{id}")
-	public ResponseEntity<AdvertisementDetails> getCustomerById(@PathVariable Integer id){
+	public ResponseEntity<AdvertisementDetails> getAdvertisementById(@PathVariable Integer id){
 		try {
 			AdvertisementDetails advertisements= advertisementService.getAdvertisementById(id);
 			log.info("Advertisement added"+ advertisements);
@@ -46,7 +54,10 @@ public class AdvertisementController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
 		}
 	}
-	
+	//get all advertisement
+	@ApiOperation(value = "Get All Advertisement",
+			response = AdvertisementDetails.class,tags="get-all-advertisement",
+			httpMethod = "GET")
 	@GetMapping("/")
 	public ResponseEntity<List<AdvertisementDetails>> getAllAdvertisements(){
 		try {
@@ -58,13 +69,15 @@ public class AdvertisementController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
 		}
 	}
-	
-	
+	//add advertisement
+	@ApiOperation(value = "Add Advertisement",
+			consumes = "receives Advertisement object as request body",
+			response =String.class)
 	@PostMapping("/{cid}/{sid}")
 	public String addAdvertisements(@PathVariable Integer cid,@PathVariable Integer sid, @RequestBody AdvertisementDetails advertisements) {
 		try {
 			Integer status= advertisementService.addAdvertisement(cid,sid,advertisements);
-			
+
 			if(status ==1) {
 				log.info("advertisement:"+advertisements.getAdvType()+" added to database");
 				return "advertisement:"+advertisements.getAdvType()+" added to database";
@@ -78,37 +91,40 @@ public class AdvertisementController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
 		}
 	}
-		
-		
-		@DeleteMapping("/{id}")
-		public String deleteAdvertisements(@PathVariable Integer id) {
-			try {
-				Integer status= advertisementService.deleteAdvertisement(id);
-				if(status ==1) {
-					log.info("advertisement: "+id+" deleted from database");
-					return "advertisement: "+id+" deleted from database";
-				}else {
-					log.debug("Unable to delete advertisement from database");
-					return "Unable to delete advertisement from database";
-				}
-
-			}catch(AdvertisementException advertisementException) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
+	// delete advertisement
+	@ApiOperation(value = "Delete Advertisement",
+			consumes = "id",
+			response =String.class)
+	@DeleteMapping("/{id}")
+	public String deleteAdvertisements(@PathVariable Integer id) {
+		try {
+			Integer status= advertisementService.deleteAdvertisement(id);
+			if(status ==1) {
+				log.info("advertisement: "+id+" deleted from database");
+				return "advertisement: "+id+" deleted from database";
+			}else {
+				log.debug("Unable to delete advertisement from database");
+				return "Unable to delete advertisement from database";
 			}
-		}
-		
-		@PutMapping("/")
-		public ResponseEntity<AdvertisementDetails> updateAdvertisements(@RequestBody AdvertisementDetails advertisements) {
-			try {
-				AdvertisementDetails updatedAdvertisement= advertisementService.updateAdvertisement(advertisements);
-				log.info("Advertisement: "+ advertisements.getId()+ " updated");
-				return new ResponseEntity<>(updatedAdvertisement,HttpStatus.OK);
 
-			}catch(AdvertisementException advertisementException) {
-				log.error(advertisementException.getMessage());
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
-			}
+		}catch(AdvertisementException advertisementException) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
 		}
 	}
+	// update advertisement
+	@ApiOperation(value = "Update Advertisement",
+			consumes = "receives Advertisement object as request body",
+			response =AdvertisementDetails.class)
+	@PutMapping("/")
+	public ResponseEntity<AdvertisementDetails> updateAdvertisements(@RequestBody AdvertisementDetails advertisements) {
+		try {
+			AdvertisementDetails updatedAdvertisement= advertisementService.updateAdvertisement(advertisements);
+			log.info("Advertisement: "+ advertisements.getId()+ " updated");
+			return new ResponseEntity<>(updatedAdvertisement,HttpStatus.OK);
 
-
+		}catch(AdvertisementException advertisementException) {
+			log.error(advertisementException.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,advertisementException.getMessage());
+		}
+	}
+}
