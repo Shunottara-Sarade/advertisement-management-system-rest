@@ -1,7 +1,7 @@
 package com.capgemini.advertisement.controller;
 
 import java.util.List;
-
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -60,7 +60,8 @@ public class CustomerController{
 	//http://localhost:8081/api/customer/
 	//add product	
 	@PostMapping("/")
-	public String addCustomer(@RequestBody CustomerMaster customer) {
+	public String addCustomer(@Valid @RequestBody CustomerMaster customer) {
+
 		try {
 			Integer status= customerService.addCustomer(customer);
 			if(status ==1) {
@@ -112,20 +113,5 @@ public class CustomerController{
 	}
 
 
-//	//get all products between given two prices
-//	//http://localhost:8081/api-new/products/15000/80000
-//	@GetMapping("/{p1}/{p2}")
-//	public ResponseEntity<List<Product>> 
-//		getProductsBetweenPrice(@PathVariable("p1") Double p1, 
-//							@PathVariable("p2") Double p2){
-//		try {
-//			List<Product> productList= 
-//					productService.getProductsBetweenPrice(p1, p2);
-//			return new ResponseEntity<>(productList,HttpStatus.OK);
-//		}catch(ProductException e) {
-//			log.error(e.getMessage());
-//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-//		}
-//	}
 
 }
