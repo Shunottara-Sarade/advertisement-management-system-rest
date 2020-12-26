@@ -26,26 +26,29 @@ import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
+
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceSpringDataImplTest {
 	@Mock
 	private CustomerSpringDataDAO customerSpringDataDao;
-	
+
+	@Mock
+	private CustomerMaster customerMaster;
+
 	@InjectMocks
 	private CustomerServiceSpringDataImpl customerService;
-	
+
 
 	@Test
 	void testAddCustomer() throws CustomerException {
-		CustomerMaster customerMaster=new CustomerMaster();
 		customerMaster.setCustId(1);
 		customerMaster.setCustFirstName("Virat");
 		customerMaster.setCustLastName("Kohli");
 		customerMaster.setCustEmail("virat@gmail.com");
 		customerMaster.setCustMobile("8798451232");
 		customerMaster.setCustPassword("virat@123");
-		
+
 		given(customerSpringDataDao.save(customerMaster)).willReturn(customerMaster);
 		Integer savedCustomer=customerService.addCustomer(customerMaster);
 		Assertions.assertThat(savedCustomer).isNotNull();
@@ -54,7 +57,6 @@ class CustomerServiceSpringDataImplTest {
 
 	@Test
 	void testGetCustomerById() throws CustomerException {
-		CustomerMaster customerMaster=new CustomerMaster();
 		customerMaster.setCustId(1);
 		customerMaster.setCustFirstName("Virat");
 		customerMaster.setCustLastName("Kohli");
@@ -64,7 +66,7 @@ class CustomerServiceSpringDataImplTest {
 		given(customerSpringDataDao.findById(1)).willReturn(Optional.of(customerMaster));
 		CustomerMaster getCustomerId= customerService.getCustomerById(1);
 		Assertions.assertThat(getCustomerId).isNotNull();
-		
+
 	}
 
 	@Test
@@ -77,7 +79,6 @@ class CustomerServiceSpringDataImplTest {
 
 	@Test
 	void testGetAllCustomer() throws CustomerException {
-		CustomerMaster customerMaster=new CustomerMaster();
 		List<CustomerMaster> customerList=new ArrayList<CustomerMaster>();
 		customerMaster.setCustId(1);
 		customerMaster.setCustFirstName("Virat");
@@ -86,14 +87,13 @@ class CustomerServiceSpringDataImplTest {
 		customerMaster.setCustMobile("8798451232");
 		customerMaster.setCustPassword("virat@123");
 		customerList.add(customerMaster);
-		 given(customerSpringDataDao.findAll()).willReturn(customerList);
+		given(customerSpringDataDao.findAll()).willReturn(customerList);
 		List<CustomerMaster> custList=customerService.getAllCustomer();
 		Assertions.assertThat(custList).isEqualTo(customerList);
 	}
 
 	@Test
 	void testUpdateCustomer() throws CustomerException {
-		CustomerMaster customerMaster=new CustomerMaster();
 		customerMaster.setCustId(1);
 		customerMaster.setCustFirstName("Virat");
 		customerMaster.setCustLastName("Kohli");
@@ -102,9 +102,9 @@ class CustomerServiceSpringDataImplTest {
 		customerMaster.setCustPassword("virat@123");
 		given(customerSpringDataDao.save(customerMaster)).willReturn(customerMaster);
 		CustomerMaster expectedCustomer=customerService.updateCustomer(customerMaster);
-Assertions.assertThat(expectedCustomer).isNotNull();
-	    
-	    verify(customerSpringDataDao).save(any(CustomerMaster.class));
+		Assertions.assertThat(expectedCustomer).isNotNull();
+
+		verify(customerSpringDataDao).save(any(CustomerMaster.class));
 	}
 
 }
