@@ -13,29 +13,37 @@ import com.capgemini.advertisement.dao.CustomerSpringDataDAO;
 import com.capgemini.advertisement.entity.CustomerMaster;
 import com.capgemini.advertisement.exception.CustomerException;
 
-@Primary
-@Service( value = "customerServiceSpringData")
+/**
+ * 
+ * @author Shweta and Ashwini
+ *
+ */
+
+@Service
 @Transactional
 public class CustomerServiceSpringDataImpl implements CustomerService{
 	@Autowired
 	private CustomerSpringDataDAO customerSpringDataDaoImpl;
-	
+
+	//calling addCustomer method of DAO layer
 	@Override
-	public Integer addCustomer(CustomerMaster customer) throws CustomerException {
-			try {
-				CustomerMaster c= 
-						customerSpringDataDaoImpl.save(customer);
-				System.out.println(c);
-				return 1;
-			}catch(DataAccessException dataAccessException) {
-				throw new CustomerException(dataAccessException.getMessage(),dataAccessException);
-			}catch(Exception exception) {
-				throw new CustomerException(exception.getMessage(),exception);
-			}
+		public Integer addCustomer(CustomerMaster customer) throws CustomerException {
+		try {
+			
+			CustomerMaster c= 
+					customerSpringDataDaoImpl.save(customer);
+			System.out.println(c);
+			return 1;
+		}catch(DataAccessException dataAccessException) {
+			throw new CustomerException(dataAccessException.getMessage(),dataAccessException);
+		}catch(Exception exception) {
+			throw new CustomerException(exception.getMessage(),exception);
+		}
 	}
 
+	//calling getCustomerById method of DAO layer
 	@Override
-	public CustomerMaster getCustomerById(Integer customerId) throws CustomerException {
+		public CustomerMaster getCustomerById(Integer customerId) throws CustomerException {
 		try {
 			Optional<CustomerMaster> optional= 
 					customerSpringDataDaoImpl.findById(customerId);
@@ -52,8 +60,9 @@ public class CustomerServiceSpringDataImpl implements CustomerService{
 		}
 	}
 
+	//calling deleteCustomer method of DAO layer
 	@Override
-	public Integer deleteCustomer(Integer customerId) throws CustomerException {
+		public Integer deleteCustomer(Integer customerId) throws CustomerException {
 		try {
 			customerSpringDataDaoImpl.deleteById(customerId);
 			return 1;
@@ -64,8 +73,9 @@ public class CustomerServiceSpringDataImpl implements CustomerService{
 		}
 	}
 
+	//calling getAllCustomer method of DAO layer
 	@Override
-	public List<CustomerMaster> getAllCustomer() throws CustomerException {
+		public List<CustomerMaster> getAllCustomer() throws CustomerException {
 		try {
 			List<CustomerMaster> customerList=
 					customerSpringDataDaoImpl.findAll();
@@ -77,8 +87,9 @@ public class CustomerServiceSpringDataImpl implements CustomerService{
 		}
 	}
 
+	//calling updateCustomer method of DAO layer
 	@Override
-	public CustomerMaster updateCustomer(CustomerMaster customer) throws CustomerException {
+		public CustomerMaster updateCustomer(CustomerMaster customer) throws CustomerException {
 		try {
 			CustomerMaster c= 
 					customerSpringDataDaoImpl.save(customer);
@@ -90,17 +101,6 @@ public class CustomerServiceSpringDataImpl implements CustomerService{
 		}
 	}
 
-//	@Override
-//	public List<Product> getProductsBetweenPrice(Double p1, Double p2) throws ProductException{
-//		try {
-//			List<Product> productList=
-//					productSpringDataDaoImpl.getProductsBetweenPrice(p1, p2);
-//			return productList;
-//		}catch(DataAccessException e) {
-//			throw new ProductException(e.getMessage(),e);
-//		}catch(Exception e) {
-//			throw new ProductException(e.getMessage(),e);
-//		}
-//	}
-
 }
+
+
