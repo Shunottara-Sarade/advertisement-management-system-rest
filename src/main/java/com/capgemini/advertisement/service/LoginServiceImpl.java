@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
 
 	// ****************************************//
 	/*
-	 * retest password of customer
+	 * reset password of customer
 	 */
 	@Override
 	public String changePassword(Login customerMaster, String new_password) {
