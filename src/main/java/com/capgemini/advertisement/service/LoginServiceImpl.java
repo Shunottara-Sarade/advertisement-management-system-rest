@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
 
 	// ****************************************//
 	/*
-	 * signin the page by Staff using StaffId and the password
+	 * signin the page by Customer using CustId and the password
 	 */
 	@Override
 	public String signIn(Login customerMaster) {
@@ -55,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
 
 	// ****************************************//
 	/*
-	 * signout the page by Staff using StaffId and the password
+	 * signout the page by Customer using CustId and the password
 	 */
 	@Override
 	public String signOut(LogOutPayload customerMaster) {
@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
 
 	// ****************************************//
 	/*
-	 * retest password
+	 * retest password of customer
 	 */
 	@Override
 	public String changePassword(Login customerMaster, String new_password) {
