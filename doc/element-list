@@ -1,0 +1,7 @@
+com.capgemini.advertisement.advertisementmanagementsystemrest
+com.capgemini.advertisement.config
+com.capgemini.advertisement.controller
+com.capgemini.advertisement.dao
+com.capgemini.advertisement.entity
+com.capgemini.advertisement.exception
+com.capgemini.advertisement.service
