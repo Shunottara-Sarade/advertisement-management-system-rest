@@ -1,0 +1,83 @@
+:root {
+  --primary: #fff;
+}
+
+.btn {
+  padding: 8px 20px;
+  border-radius: 2px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background-color: var(--primary);
+  color: #242424;
+  border: 1px solid var(--primary);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: #fff;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+}
+
+.btn--medium {
+  padding: 8px 20px;
+  font-size: 18px;
+}
+
+.btn--large {
+  padding: 12px 26px;
+  font-size: 20px;
+}
+
+.btn--large:hover,
+.btn--medium:hover {
+  transition: all 0.3s ease-out;
+  background: #fff;
+  color: #242424;
+  transition: 250ms;
+}
+
+.logintag {
+  background-color: cornflowerblue;
+  font-size: 20px;
+}
+.LoginAs {
+  background-color: rgb(205, 214, 226);
+  height: 80vh;
+}
+.buttonCust {
+  background-color: rgb(50, 65, 88);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  position: inherit;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-left: 500px;
+  width: 200px;
+}
+
+.buttonStaf {
+  background-color: rgb(50, 65, 88);
+  border: lightblue;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  position: inherit;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-left: 4px;
+  width: 200px;
+}
