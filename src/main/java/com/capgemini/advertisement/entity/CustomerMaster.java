@@ -1,7 +1,5 @@
 package com.capgemini.advertisement.entity;
 
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,16 +16,16 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 
+ * @author Ashwini and Shweta
+ *
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -72,7 +70,7 @@ public class CustomerMaster {
    @ToString.Exclude
    @JsonIgnore
 	@OneToMany(mappedBy = "customer")
-	private Set<AdvertisementDetails> advertisement;
+	 private Set<AdvertisementDetails> advertisement;
 
 
 }

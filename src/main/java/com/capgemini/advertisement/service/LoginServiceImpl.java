@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 
 
 
-import com.capgemini.advertisement.dao.StaffLoginRepository;
+import com.capgemini.advertisement.dao.LoginRepository;
+import com.capgemini.advertisement.entity.CustomerMaster;
 import com.capgemini.advertisement.entity.ForgotPassword;
 import com.capgemini.advertisement.entity.LogOutPayload;
-import com.capgemini.advertisement.entity.Role;
+import com.capgemini.advertisement.entity.Login;
 import com.capgemini.advertisement.entity.Staff;
 import com.capgemini.advertisement.entity.StaffLogin;
 import com.capgemini.advertisement.exception.OperationFailedException;
@@ -21,41 +22,37 @@ import static com.capgemini.advertisement.exception.AppConstants.USER_NOT_FOUND;
 import static com.capgemini.advertisement.exception.AppConstants.WRONG_PASSWORD;
 import java.util.Optional;
 
+
 /**
  * 
- * @author Sandhya and Shunottara
+ * @author Sandhya and Shweta
  *
  */
+
 @Service
-public class StaffLoginServiceImpl implements StaffLoginService {
+public class LoginServiceImpl implements LoginService {
 
-	@Autowired 
-	private StaffLoginRepository staffLoginRepository;
-
-
+	@Autowired // To get a relation with User repository
+	private LoginRepository loginRepository;
 
 	/**
-	 *signIn
+	 * signIn
 	 */
 	@Override
-	public String signIn(StaffLogin staff) {
-		String str = null;
-		Optional<Staff> staffObj = staffLoginRepository.findByEmailId(staff.getEmail());
-		if (!staffObj.isPresent()) {
-			System.out.println(staffObj);
+	public String signIn(Login customerMaster) {
+		String str=null;
+		Optional<CustomerMaster> customerObj=loginRepository.findByEmailId(customerMaster.getEmail());
+		if (!customerObj.isPresent()) {
+			System.out.println(customerObj);
 			throw new ResourceNotFound(USER_NOT_FOUND);
 		} else {
-			String pwd = staffObj.get().getPassword();
-			Role role=staffObj.get().getRole();
-			if (!pwd.equals(staff.getPassword())) {
+			String pwd = customerObj.get().getCustPassword();
+			if (!pwd.equals(customerMaster.getPassword())) {
 				throw new ResourceNotFound(WRONG_PASSWORD);
-			}
-			if(!role.equals(staff.getRole())) {
-				throw new ResourceNotFound(USER_NOT_FOUND);
 			}
 			try {
 				str = "Sign in sucessfull";
-				staffLoginRepository.saveAndFlush(staffObj.get());
+				loginRepository.saveAndFlush(customerObj.get());
 			} catch (Exception e) {
 				throw new OperationFailedException(OPERATION_FAILED);
 			}
@@ -63,23 +60,21 @@ public class StaffLoginServiceImpl implements StaffLoginService {
 		return str;
 
 
-
 	}
-
 
 	/**
 	 * signOut
 	 */
 	@Override
-	public String signOut(LogOutPayload staff) {
+	public String signOut(LogOutPayload customerMaster) {
 		String str = null;
-		Optional<Staff> staffObj = staffLoginRepository.findById(staff.getId());
-		if (!staffObj.isPresent()) {
+		Optional<CustomerMaster> customerObj = loginRepository.findById(1);
+		if (!customerObj.isPresent()) {
 			throw new ResourceNotFound(USER_NOT_FOUND);
 		} else {
 			try {
 				str = "Sign Out sucessfull";
-				staffLoginRepository.saveAndFlush(staffObj.get());
+				loginRepository.saveAndFlush(customerObj.get());
 			} catch (Exception e) {
 				throw new OperationFailedException(OPERATION_FAILED);
 			}
@@ -91,19 +86,19 @@ public class StaffLoginServiceImpl implements StaffLoginService {
 	 * changePassword
 	 */
 	@Override
-	public String changePassword(StaffLogin staff, String new_password) {
+	public String changePassword(Login customerMaster, String new_password) {
 		String str = null;
-		Optional<Staff> staffObj = staffLoginRepository.findByEmailId(staff.getEmail());
-		if (!staffObj.isPresent()) {
+		Optional<CustomerMaster> customerObj = loginRepository.findByEmailId(customerMaster.getEmail());
+		if (!customerObj.isPresent()) {
 			throw new ResourceNotFound(USER_NOT_FOUND);
 		} else {
-			String pwd = staffObj.get().getPassword();
-			if (!pwd.equals(staff.getPassword())) {
+			String pwd = customerObj.get().getCustPassword();
+			if (!pwd.equals(customerMaster.getPassword())) {
 				throw new ResourceNotFound(WRONG_PASSWORD);
 			}
 			try {
-				staffObj.get().setPassword(new_password);
-				staffLoginRepository.saveAndFlush(staffObj.get());
+				customerObj.get().setCustPassword(new_password);
+				loginRepository.saveAndFlush(customerObj.get());
 				str = "Password changed sucessfully";
 			} catch (Exception e) {
 				throw new OperationFailedException(OPERATION_FAILED);
@@ -113,20 +108,20 @@ public class StaffLoginServiceImpl implements StaffLoginService {
 	}
 	
 	@Override
-	public String forgotPassword(ForgotPassword staff, String newPassword) {
+	public String forgotPassword(ForgotPassword customerMaster, String newPassword) {
 		String str = null;
-		Optional<Staff> userObj = staffLoginRepository.findByEmailId(staff.getEmail());
+		Optional<CustomerMaster> userObj = loginRepository.findByEmailId(customerMaster.getEmail());
 		
 		if (!userObj.isPresent()) {
 			throw new ResourceNotFound(USER_NOT_FOUND);
 		} else {
-			String lastName = userObj.get().getLastName();
-			if (!lastName.equals(staff.getlastName())) {
+			String lastName = userObj.get().getCustLastName();
+			if (!lastName.equals(customerMaster.getlastName())) {
 				throw new ResourceNotFound(USER_NOT_FOUND);
 			}
 			try {
-				userObj.get().setPassword(newPassword);
-				staffLoginRepository.saveAndFlush(userObj.get());
+				userObj.get().setCustPassword(newPassword);
+				loginRepository.saveAndFlush(userObj.get());
 				str = "Password updated sucessfully";
 			} catch (Exception e) {
 				throw new OperationFailedException(OPERATION_FAILED);

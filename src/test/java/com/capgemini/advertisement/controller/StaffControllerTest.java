@@ -11,8 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.capgemini.advertisement.controller.StaffController;
 import com.capgemini.advertisement.entity.Role;
 import com.capgemini.advertisement.entity.Staff;
 
@@ -48,7 +46,8 @@ class StaffControllerTest {
 	private final String mobile="9852123265";
 	private final String password="virat@123";
 	private Role role;
-
+	
+	
 	@Test
 	void testGetStaffById() throws Exception {
 		Staff staff=new Staff();

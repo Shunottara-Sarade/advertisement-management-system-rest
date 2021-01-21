@@ -5,6 +5,7 @@ package com.capgemini.advertisement.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.advertisement.entity.ForgotPassword;
 import com.capgemini.advertisement.entity.LogOutPayload;
-import com.capgemini.advertisement.entity.StaffLogin;
+import com.capgemini.advertisement.entity.Login;
 import com.capgemini.advertisement.exception.BaseResponse;
-import com.capgemini.advertisement.service.StaffLoginService;
+import com.capgemini.advertisement.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -23,34 +24,32 @@ import io.swagger.annotations.ApiOperation;
 
 /**
  * 
- * @author Sandhya and Shunottara
+ * @author Sandhya and Shweta
  *
  */
 
  
 
 @RestController
-@RequestMapping("/api/staffLogin")
-@Api(value = "Staff")
-public class StaffLoginController 
+@RequestMapping("/api/customerLogin")
+@CrossOrigin(origins = "http://localhost:3000")
+@Api(value = "CustomerMaster")
+public class LoginController 
 {
     @Autowired 
-    private StaffLoginService staffLoginService;
+    private LoginService loginService;
 
  
 
     /**
-     * @param staff
-     * Login of staff
+     * @param customerMaster
+     * Login of customer
      * @return
      */
-
- 
-
-    @PostMapping("/login")
+    @PostMapping("/login") 
     @ApiOperation(value = "SignIn")
-    public ResponseEntity<?> signIn( @RequestBody StaffLogin staff) {
-        String str = staffLoginService.signIn(staff);
+    public ResponseEntity<?> signIn( @RequestBody Login customerMaster) {
+        String str = loginService.signIn(customerMaster);
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(1);
         baseResponse.setResponse(str);
@@ -60,14 +59,14 @@ public class StaffLoginController
  
 
     /**
-     * @param staff
-     * Logout of staff
+     * @param customerMaster
+     * Logout of customer
      * @return
      */
     @PostMapping("/logout") 
     @ApiOperation(value = "SignOut")
-    public ResponseEntity<?> signOut( @RequestBody LogOutPayload staff) {
-        String str = staffLoginService.signOut(staff);
+    public ResponseEntity<?> signOut( @RequestBody LogOutPayload customerMaster) {
+        String str = loginService.signOut(customerMaster);
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(1);
         baseResponse.setResponse(str);
@@ -77,29 +76,29 @@ public class StaffLoginController
  
 
     /**
-     * @param staff
+     * @param customerMaster
      * @param new_password
-     * Reset password of staff
+     * Reset password of customer
      * @return
      */
     @PostMapping("/reset/{newPassword}")
     @ApiOperation(value = "Reset Password")
-    public ResponseEntity<?> changePassword( @RequestBody StaffLogin staff,@PathVariable String newPassword) {
-        String str =staffLoginService.changePassword(staff, newPassword);
+    public ResponseEntity<?> changePassword( @RequestBody Login customerMaster,@PathVariable String newPassword) {
+        String str =loginService.changePassword(customerMaster, newPassword);
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setStatusCode(1);
         baseResponse.setResponse(str);
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
     }
     
+    
     @PostMapping("/forgot/{newPassword}")
 	@ApiOperation(value = "Forgot Password")
-	public ResponseEntity<?> forgotPassword( @RequestBody ForgotPassword staff,@PathVariable String newPassword) {
-		String str =staffLoginService.forgotPassword(staff, newPassword);
+	public ResponseEntity<?> forgotPassword( @RequestBody ForgotPassword customerMaster,@PathVariable String newPassword) {
+		String str =loginService.forgotPassword(customerMaster, newPassword);
 		BaseResponse baseResponse = new BaseResponse();
 		baseResponse.setStatusCode(1);
 		baseResponse.setResponse(str);
 		return new ResponseEntity<>(baseResponse, HttpStatus.OK);
 	}
-
 }

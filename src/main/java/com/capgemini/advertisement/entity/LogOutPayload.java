@@ -1,5 +1,9 @@
 package com.capgemini.advertisement.entity;
-
+/**
+ * 
+ * @author Sandhya and Shweta
+ *
+ */
 public class LogOutPayload {
     private Integer id;
 
