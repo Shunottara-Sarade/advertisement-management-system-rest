@@ -20,7 +20,7 @@ public interface CustomerService {
 	 * @return customerMaster
 	 * @throws CustomerException
 	 */
-	public CustomerMaster getCustomerById(Integer cust_id) throws CustomerException;
+	public CustomerMaster getCustomerById(Integer custId) throws CustomerException;
 	
 	/**
 	 * delete customer
@@ -29,7 +29,7 @@ public interface CustomerService {
 	 * else
 	 * @throws CustomerException
 	 */
-	public Integer deleteCustomer(Integer cust_id) throws CustomerException;
+	public Integer deleteCustomer(Integer custId) throws CustomerException;
 	
 	/**
 	 * get all customer

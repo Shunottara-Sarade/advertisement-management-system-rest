@@ -1,7 +1,5 @@
 package com.capgemini.advertisement.entity;
 
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,7 +26,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
+/**
+ * 
+ * @author Shunottara and Samidha
+ *
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

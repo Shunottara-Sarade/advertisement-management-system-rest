@@ -2,6 +2,7 @@ package com.capgemini.advertisement.service;
 
  
 
+import com.capgemini.advertisement.entity.ForgotPassword;
 import com.capgemini.advertisement.entity.LogOutPayload;
 import com.capgemini.advertisement.entity.Staff;
 import com.capgemini.advertisement.entity.StaffLogin;
@@ -33,6 +34,6 @@ public interface StaffLoginService {
      * @return changed password
      */
     public String changePassword(StaffLogin staff, String new_password);
-
+    public String forgotPassword(ForgotPassword staff, String newPassword);
 
 }

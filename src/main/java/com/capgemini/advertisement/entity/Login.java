@@ -1,33 +1,23 @@
 package com.capgemini.advertisement.entity;
-
 /**
  * 
- * @author Shweta and Sandhya
+ * @author Sandhya and Shweta
  *
  */
-
-public class Login
-{
-	private Integer custId;
-	private String password;
-
-	public Integer getCustId()
-	{
-		return custId;
+public class Login {
+   
+	private String email;
+    private String password;
+	public String getEmail() {
+		return email;
 	}
-
-	public void setCustId(Integer custId) 
-	{
-		this.custId = custId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
-	public String getPassword() 
-	{
+	public String getPassword() {
 		return password;
 	}
-
-	public void setPassword(String password) 
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }

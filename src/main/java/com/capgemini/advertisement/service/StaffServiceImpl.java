@@ -29,6 +29,9 @@ public class StaffServiceImpl implements StaffService
 	private StaffSpringDataDAO staffSpringDataDaoImpl;
 
 	//calling addStaff method of DAO layer
+	/**
+	 * addStaff
+	 */
 	@Override
 	public Integer addStaff(Staff staff) throws StaffException 
 	{
@@ -51,6 +54,9 @@ public class StaffServiceImpl implements StaffService
 
 
 	//calling getStaffById method of DAO layer
+	/**
+	 * getStaffById
+	 */
 	@Override
 	public Staff getStaffById(Integer staffId) throws StaffException 
 	{
@@ -78,6 +84,9 @@ public class StaffServiceImpl implements StaffService
 
 
 	//calling deleteStaff method of DAO layer
+	/**
+	 * deleteStaff
+	 */
 	@Override
 	public Integer deleteStaff(Integer staffId) throws StaffException 
 	{
@@ -99,6 +108,9 @@ public class StaffServiceImpl implements StaffService
 
 
 	//calling getAllStaff method of DAO layer
+	/**
+	 * getAllStaff
+	 */
 	@Override
 	public List<Staff> getAllStaff() throws StaffException
 	{
@@ -120,6 +132,9 @@ public class StaffServiceImpl implements StaffService
 
 
 	//calling updateStaff method of DAO layer
+	/**
+	 * updateStaff
+	 */
 	@Override
 	public Staff updateStaff(Staff staff) throws StaffException 
 	{

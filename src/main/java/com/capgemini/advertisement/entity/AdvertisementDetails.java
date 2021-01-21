@@ -1,5 +1,4 @@
 package com.capgemini.advertisement.entity;
-
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,19 +11,17 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 /**
  * 
  * @author Sapna and Dakshata
  *
  */
-//This annotation is used to create and declare the table name
 @Entity
 @Table(name="advertisement_details")
 @Data
@@ -46,21 +43,34 @@ public class AdvertisementDetails {
 	@Column(name="adv_location")
 	private String advLocation;
 
-	@Column(name="start_date")
+	@Column(name="start_date",nullable = false)
 	private LocalDate startDate;
 
 	@Column(name="end_date")
 	private LocalDate endDate;
+	
+	
+	@Column(name="adv_name")
+	private String advName;
+	
+	@Column(name="image_status")
+	private String imageStatus;
 
+	@JsonIgnore
 	@Lob
-	@Type(type="org.hibernate.type.BinaryType")
 	@Column(name="adv_image")
 	private byte[] advImage;
-
+	
+	@Column(name="image_url")
+	private String link;
+	
+	@Column(name="is_posted")
+	private Integer isPosted;
+	
+	
 	@ToString.Exclude
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cust_id")
+	@ManyToOne
+	@JoinColumn(name = "cust_id",nullable = false)
 	private CustomerMaster customer;
 
 	@ToString.Exclude
@@ -72,3 +82,9 @@ public class AdvertisementDetails {
 
 
 }
+
+
+
+
+
+

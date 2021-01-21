@@ -15,8 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capgemini.advertisement.controller.AdvertisementController;
+import com.capgemini.advertisement.entity.AddAdvertisement;
 import com.capgemini.advertisement.entity.AdvertisementDetails;
 import com.capgemini.advertisement.entity.CustomerMaster;
 import com.capgemini.advertisement.entity.Role;
@@ -123,26 +125,7 @@ class AdvertisementControllerTest
 		assertEquals(200, status);
 	}
 
-	@Test
-	void testUpdateAdvertisement() throws Exception {
-		AdvertisementDetails advertisement= new AdvertisementDetails();
-
-		advertisement.setId(1);
-		advertisement.setAdvType("Clothes");
-		Mockito.when(advertisementService.updateAdvertisement(advertisement)).thenReturn(advertisement);
-		String json = mapper.writeValueAsString(advertisement);
-
-		//Execute PUT Request
-		mockMvc.perform(put("/api/advertisement/")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(json))
-		// Validate the response code
-		.andExpect(status().isOk())
-		// Validate the returned fields
-		.andExpect(jsonPath("$.id",is(1)))
-		.andExpect(jsonPath("$.advType", is("Clothes")));
-
-	}
+	
 
 
 }

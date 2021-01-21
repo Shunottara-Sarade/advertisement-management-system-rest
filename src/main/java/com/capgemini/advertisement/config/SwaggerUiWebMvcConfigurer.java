@@ -9,83 +9,88 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //https://springfox.github.io/springfox/docs/snapshot/
-
+//http://localhost:8081/springfox/swagger-ui/index.html
 @Component
 public class SwaggerUiWebMvcConfigurer implements WebMvcConfigurer {
-  private final String baseUrl;
+	private final String baseUrl;
 
-  public SwaggerUiWebMvcConfigurer(
-      @Value("${springfox.documentation.swagger-ui.base-url:}") String baseUrl) {
-    this.baseUrl = baseUrl;
-  }
+	/**
+	 * @param baseUrl
+	 */
+	public SwaggerUiWebMvcConfigurer(
+			@Value("${springfox.documentation.swagger-ui.base-url:}") String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		String baseUrl = StringUtils.trimTrailingCharacter(this.baseUrl, '/');
+		registry.
+		addResourceHandler(baseUrl + "/swagger-ui/**")
+		.addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+		.resourceChain(false);
+	}
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    String baseUrl = StringUtils.trimTrailingCharacter(this.baseUrl, '/');
-    registry.
-        addResourceHandler(baseUrl + "/swagger-ui/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-        .resourceChain(false);
-  }
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController(baseUrl + "/swagger-ui/")
+		.setViewName("forward:" + baseUrl + "/swagger-ui/index.html");
+	}
 
-  //http://localhost:8081/springfox/swagger-ui/index.html
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController(baseUrl + "/swagger-ui/")
-        .setViewName("forward:" + baseUrl + "/swagger-ui/index.html");
-  }
+	/**
+	 *
+	 */
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry
+		.addMapping("/api/staff")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/v2/api-docs.*")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/api/staff")
+		.allowedOrigins("*");
 
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    registry
-        .addMapping("/api/staff")
-        .allowedOrigins("http://editor.swagger.io");
-    registry
-        .addMapping("/v2/api-docs.*")
-        .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/api/staff")
-    .allowedOrigins("*");
-    
-    registry
-    .addMapping("/api/customer")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/v2/api-docs.*")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/api/customer")
-    .allowedOrigins("*");
-    
-    registry
-    .addMapping("/api/advertisement")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/v2/api-docs.*")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/api/advertisement")
-    .allowedOrigins("*");
-    
-    registry
-    .addMapping("/api/staffLogin")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/v2/api-docs.*")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/api/staffLogin")
-    .allowedOrigins("*");
-    
-    registry
-    .addMapping("/api/customerLogin")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/v2/api-docs.*")
-    .allowedOrigins("http://editor.swagger.io");
-    registry
-    .addMapping("/api/customerLogin")
-    .allowedOrigins("*");
-   
-  }
+		registry
+		.addMapping("/api/customers")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/v2/api-docs.*")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/api/customers")
+		.allowedOrigins("*");
+
+		registry
+		.addMapping("/api/advertisement")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/v2/api-docs.*")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/api/advertisement")
+		.allowedOrigins("*");
+
+		registry
+		.addMapping("/api/staffLogin")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/v2/api-docs.*")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/api/staffLogin")
+		.allowedOrigins("*");
+
+		registry
+		.addMapping("/api/customerLogin")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/v2/api-docs.*")
+		.allowedOrigins("http://editor.swagger.io");
+		registry
+		.addMapping("/api/customerLogin")
+		.allowedOrigins("*");
+
+	}
 }

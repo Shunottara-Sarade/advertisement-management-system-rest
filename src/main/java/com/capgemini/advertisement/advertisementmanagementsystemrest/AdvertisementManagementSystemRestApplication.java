@@ -22,6 +22,9 @@ public class AdvertisementManagementSystemRestApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AdvertisementManagementSystemRestApplication.class, args);
 	}
+	 /**
+     * @return Docket
+     */
 	@Bean
 	  public Docket openApiStaffStore() {
 	    return new Docket(DocumentationType.OAS_30)
@@ -30,11 +33,18 @@ public class AdvertisementManagementSystemRestApplication {
 	        .paths(staffPaths())
 	        .build();
 	  }
+	/**
+	 * 
+	 * @return regex
+	 */
 
 	  private Predicate<String> staffPaths() {
 	    return regex(".*/api/staff/.*");
 	  }
 	  
+	  /**
+	     * @return Docket
+	     */
 	  @Bean
 	  public Docket openApiCustomerStore() {
 	    return new Docket(DocumentationType.OAS_30)
@@ -43,11 +53,17 @@ public class AdvertisementManagementSystemRestApplication {
 	        .paths(customerPaths())
 	        .build();
 	  }
-
+	  /**
+	   * 
+	   * @return regex
+	   */
 	  private Predicate<String> customerPaths() {
 	    return regex(".*/api/customers/.*");
 	  }
-	  
+	  /**
+	   * 
+	   * @return Docket
+	   */
 	  @Bean
 	  public Docket openApiAdvertisementStore() {
 	    return new Docket(DocumentationType.OAS_30)
@@ -56,11 +72,18 @@ public class AdvertisementManagementSystemRestApplication {
 	        .paths(advertisementPaths())
 	        .build();
 	  }
+	  /**
+	   * 
+	   * @return regex
+	   */
 
 	  private Predicate<String> advertisementPaths() {
 	    return regex(".*/api/advertisement/.*");
 	  }
-	  
+	  /**
+	   * 
+	   * @return Docket
+	   */
 	  @Bean
 	  public Docket openApiStaffLogin() {
 	    return new Docket(DocumentationType.OAS_30)
@@ -69,11 +92,18 @@ public class AdvertisementManagementSystemRestApplication {
 	        .paths(staffLoginPaths())
 	        .build();
 	  }
-
+	  /**
+	   * 
+	   * @return regex
+	   */
 	  private Predicate<String> staffLoginPaths() {
 	    return regex(".*/api/staffLogin/.*");
 	  }
 	  
+	  /**
+	   * 
+	   * @return Docket
+	   */
 	  @Bean
 	  public Docket openApiCustomerLogin() {
 	    return new Docket(DocumentationType.OAS_30)
@@ -82,6 +112,10 @@ public class AdvertisementManagementSystemRestApplication {
 	        .paths(customerLoginPaths())
 	        .build();
 	  }
+	  /**
+	   * 
+	   * @return regex
+	   */
 
 	  private Predicate<String> customerLoginPaths() {
 	    return regex(".*/api/customerLogin/.*");
